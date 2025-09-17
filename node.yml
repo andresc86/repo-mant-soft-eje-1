@@ -1,0 +1,26 @@
+name: Nodejs CI
+
+on;
+  push;
+    breaches: [main]
+  pull_request:
+    breaches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout código
+        uses: actions/checkout@v3
+
+      - name: Configurar NodeJS
+        uses: actions/setup-node@v3 //@v3 es la representacion de la version que podemos agregar ej: @v3, @v2, etc
+        with:
+          node-version: '18'
+
+      - name: Instalar dependencias
+        run: npm install jest --save-dev
+
+      - name: Ejecutar pruebas
+        run: npx jest
